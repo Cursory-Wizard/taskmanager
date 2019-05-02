@@ -17,6 +17,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
     private final LayoutInflater mInflater;
     private List<Project> mProjects;
+    private String projectID;
 
     ProjectListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
@@ -29,8 +30,30 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     @Override
     public void onBindViewHolder(ProjectViewHolder holder, int position) {
         if (mProjects != null) {
-            Project current = mProjects.get(position);
+            final Project current = mProjects.get(position);
             holder.projectItemView.setText(current.getProject());
+            holder.projectItemView.setOnTouchListener(new View.OnTouchListener() {
+                private static final int MAX_CLICK_DURATION = 200;
+                private long startClickTime;
+
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            startClickTime = Calendar.getInstance().getTimeInMillis();
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                            if(clickDuration < MAX_CLICK_DURATION) {
+                               projectID = Integer.toString(current.getID());
+                               Log.e("click", projectID);
+                            }
+                        }
+                    }
+                    return true;
+                }
+            });
         } else {
             holder.projectItemView.setText("No Project");
         }
@@ -58,27 +81,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         private ProjectViewHolder(View itemView) {
             super(itemView);
             projectItemView = itemView.findViewById(R.id.textView);
-            projectItemView.setOnTouchListener(new View.OnTouchListener() {
-                private static final int MAX_CLICK_DURATION = 200;
-                private long startClickTime;
 
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN: {
-                            startClickTime = Calendar.getInstance().getTimeInMillis();
-                            break;
-                        }
-                        case MotionEvent.ACTION_UP: {
-                            long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
-                            if(clickDuration < MAX_CLICK_DURATION) {
-                                Log.e("Clicked", "Clicked");
-                            }
-                        }
-                    }
-                    return true;
-                }
-            });
         }
     }
 }

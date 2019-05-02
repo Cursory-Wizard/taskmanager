@@ -1,5 +1,6 @@
 package com.example.taskmanager;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ProjectViewModel mProjectViewModel;
+    private LiveData<List<Project>> mProjectList;
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setProjects(projects);
             }
         });
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
