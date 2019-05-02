@@ -2,6 +2,8 @@ package com.example.taskmanager;
 
 import android.content.Context;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +19,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
     private final LayoutInflater mInflater;
     private List<Project> mProjects;
-    private String projectID;
+    private int projectID;
 
     ProjectListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
@@ -46,8 +48,13 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
                         case MotionEvent.ACTION_UP: {
                             long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
                             if(clickDuration < MAX_CLICK_DURATION) {
-                               projectID = Integer.toString(current.getID());
-                               Log.e("click", projectID);
+                               projectID = current.getID();
+                               Context bg = v.getContext();
+                               Intent intent = new Intent(bg, TaskList.class);
+                               Bundle b = new Bundle();
+                               b.putInt("id", projectID);
+                               intent.putExtras(b);
+                               bg.startActivity(intent);
                             }
                         }
                     }

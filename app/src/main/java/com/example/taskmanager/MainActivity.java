@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ProjectViewModel mProjectViewModel;
     private LiveData<List<Project>> mProjectList;
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NEW_PROJECT_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, NewProjectActivity.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                startActivityForResult(intent, NEW_PROJECT_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == NEW_PROJECT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Project project = new Project(0, data.getStringExtra(NewProjectActivity.EXTRA_REPLY));
             mProjectViewModel.insert(project);
         } else {
