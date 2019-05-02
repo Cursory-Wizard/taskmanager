@@ -28,7 +28,7 @@ public class TaskList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_task_list);
+        setContentView(R.layout.activity_task_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Bundle b = getIntent().getExtras();
@@ -53,11 +53,11 @@ public class TaskList extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton addTask = findViewById(R.id.addTask);
-        addTask.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton tasking = findViewById(R.id.addTask);
+        tasking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TaskList.this, NewProjectActivity.class);
+                Intent intent = new Intent(TaskList.this, NewTaskActivity.class);
                 startActivityForResult(intent, NEW_TASK_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -80,10 +80,25 @@ public class TaskList extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
 
             // Delete the existing data
-            mTaskViewModel.deleteAll();
+            // CHECK FUNCTIONALITY LATER. Perhaps better just to return to Main and call delete?
+            //mTaskViewModel.deleteAll();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NEW_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            Tasks task = new Tasks(0, projectID, data.getStringExtra(NewProjectActivity.EXTRA_REPLY));
+            mTaskViewModel.insert(task);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }

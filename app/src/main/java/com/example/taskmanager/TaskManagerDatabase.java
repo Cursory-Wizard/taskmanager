@@ -58,13 +58,17 @@ public abstract class TaskManagerDatabase extends RoomDatabase {
             // Start the app with a clean database every time.
             // Not needed if you only populate the database
             // when it is first created
-            mProjectDao.deleteAll();
-            mTasksDao.deleteAll();
 
-            for (int i = 0; i <= project.length - 1; i++) {
+
+            /*for (int i = 0; i <= project.length - 1; i++) {
                 Project projects = new Project(0,project[i]);
                 mProjectDao.insert(projects);
             }
+
+            for (int i = 0; i <= tasks.length - 1; i++) {
+                Task task = new Tasks(0,tasks[i]);
+                mProjectDao.insert(projects);
+            }*/
             return null;
         }
     }

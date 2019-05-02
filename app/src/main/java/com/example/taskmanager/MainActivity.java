@@ -25,6 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ProjectViewModel mProjectViewModel;
+    private TaskViewModel mTaskViewModel;
     private LiveData<List<Project>> mProjectList;
     public static final int NEW_PROJECT_ACTIVITY_REQUEST_CODE = 1;
 
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         final ProjectListAdapter adapter = new ProjectListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         mProjectViewModel = ViewModelProviders.of(this).get(ProjectViewModel.class);
 
@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
                         // Delete the project
                         mProjectViewModel.deleteProject(myProject);
+                        mProjectViewModel.deleteAllTasks(myProject);
+
                     }
                 });
 

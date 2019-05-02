@@ -18,6 +18,9 @@ public interface ProjectDao {
     @Query("DELETE FROM project_table")
     void deleteAll();
 
+    @Query("DELETE FROM task_table WHERE reference_project = (:project_id)")
+    void deleteAllTasks(int project_id);
+
     @Query("SELECT * from project_table ORDER BY project_id ASC")
     LiveData<List<Project>> getAllProjects();
 
