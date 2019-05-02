@@ -1,12 +1,16 @@
 package com.example.taskmanager;
 
 import android.content.Context;
+
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.ProjectViewHolder> {
@@ -54,7 +58,27 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         private ProjectViewHolder(View itemView) {
             super(itemView);
             projectItemView = itemView.findViewById(R.id.textView);
+            projectItemView.setOnTouchListener(new View.OnTouchListener() {
+                private static final int MAX_CLICK_DURATION = 200;
+                private long startClickTime;
 
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            startClickTime = Calendar.getInstance().getTimeInMillis();
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP: {
+                            long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                            if(clickDuration < MAX_CLICK_DURATION) {
+                                Log.e("Clicked", "Clicked");
+                            }
+                        }
+                    }
+                    return true;
+                }
+            });
         }
     }
 }
