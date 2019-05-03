@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,6 +62,32 @@ public class TaskList extends AppCompatActivity {
                 startActivityForResult(intent, NEW_TASK_ACTIVITY_REQUEST_CODE);
             }
         });
+
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView,
+                                          RecyclerView.ViewHolder viewHolder,
+                                          RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder,
+                                         int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Tasks myTask = adapter.getTaskAtPosition(position);
+                        Toast.makeText(TaskList.this, "Deleting " +
+                                myTask.getTask(), Toast.LENGTH_LONG).show();
+
+
+                        mTaskViewModel.deleteTask(myTask);
+
+
+                    }
+                });
+        helper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -97,7 +124,7 @@ public class TaskList extends AppCompatActivity {
         } else {
             Toast.makeText(
                     getApplicationContext(),
-                    R.string.empty_not_saved,
+                    R.string.task_not_saved,
                     Toast.LENGTH_LONG).show();
         }
     }

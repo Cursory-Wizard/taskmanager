@@ -83,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
                                 myProject.getProject(), Toast.LENGTH_LONG).show();
 
                         // Delete the project
-                        mProjectViewModel.deleteProject(myProject);
                         mProjectViewModel.deleteAllTasks(myProject);
+                        mProjectViewModel.deleteProject(myProject);
+
 
                     }
                 });

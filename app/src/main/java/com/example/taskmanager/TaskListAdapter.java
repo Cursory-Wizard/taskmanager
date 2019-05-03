@@ -31,7 +31,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
         }
     }
 
-    public Tasks getTaslkAtPosition (int position) {
+    public Tasks getTaskAtPosition (int position) {
         return mTasks.get(position);
     }
 

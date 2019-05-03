@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/edit_task"
         style="@style/text_view_style"
-        android:hint="@string/hint_word"
+        android:hint="@string/task_hint"
         android:inputType="textAutoComplete" />
 
     <Button
