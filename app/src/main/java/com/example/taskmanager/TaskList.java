@@ -96,7 +96,7 @@ public class TaskList extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             // Delete the existing data
             // CHECK FUNCTIONALITY LATER. Perhaps better just to return to Main and call delete?
-            //mTaskViewModel.deleteAll();
+            mTaskViewModel.deleteAll();
             return true;
         }
         return super.onOptionsItemSelected(item);
