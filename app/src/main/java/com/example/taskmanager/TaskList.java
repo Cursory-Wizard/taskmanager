@@ -23,6 +23,7 @@ public class TaskList extends AppCompatActivity {
     private TaskViewModel mTaskViewModel;
     private int projectID;
     public static final int NEW_TASK_ACTIVITY_REQUEST_CODE = 1;
+    private Tasks taskIDHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class TaskList extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         projectID = b.getInt("id");
         Log.e("click",Integer.toString(projectID));
+        taskIDHolder = new Tasks(0,projectID,"");
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -96,7 +98,7 @@ public class TaskList extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
             // Delete the existing data
             // CHECK FUNCTIONALITY LATER. Perhaps better just to return to Main and call delete?
-            mTaskViewModel.deleteAll();
+            mTaskViewModel.deleteAll(taskIDHolder);
             return true;
         }
         return super.onOptionsItemSelected(item);

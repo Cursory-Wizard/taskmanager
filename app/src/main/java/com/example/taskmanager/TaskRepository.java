@@ -28,7 +28,7 @@ public class TaskRepository {
         new deleteTasksAsyncTask(mTasksDao).execute(task);
     }
 
-    public void deleteAll(Tasks task) {new deleteAllTasksAsyncTask(mTasksDao).execute();}
+    public void deleteAll(Tasks task) {new deleteAllTasksAsyncTask(mTasksDao).execute(task);}
 
     private static class insertAsyncTask extends AsyncTask<Tasks, Void, Void> {
 
