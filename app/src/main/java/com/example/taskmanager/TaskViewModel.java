@@ -21,7 +21,5 @@ public class TaskViewModel extends AndroidViewModel{
 
     public void insert(Tasks task) {mTaskRepository.insert(task);}
 
-//    public void deleteAll() {mTaskRepository.deleteAll();}
-
     public void deleteTask(Tasks task) {mTaskRepository.deleteTask(task);}
 }

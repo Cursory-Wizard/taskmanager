@@ -1,12 +1,10 @@
 package com.example.taskmanager;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -42,14 +40,10 @@ public class TaskList extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        //mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
         mTaskViewModel = new TaskViewModel(this.getApplication(), projectID);
-
         mTaskViewModel.getAllTasks().observe(this, new Observer<List<Tasks>>() {
             @Override
             public void onChanged(@Nullable final List<Tasks> tasking) {
-
                 adapter.setTasks(tasking);
             }
         });
@@ -80,11 +74,7 @@ public class TaskList extends AppCompatActivity {
                         Tasks myTask = adapter.getTaskAtPosition(position);
                         Toast.makeText(TaskList.this, "Deleting " +
                                 myTask.getTask(), Toast.LENGTH_LONG).show();
-
-
                         mTaskViewModel.deleteTask(myTask);
-
-
                     }
                 });
         helper.attachToRecyclerView(recyclerView);
@@ -102,16 +92,13 @@ public class TaskList extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.clear_data) {
-            // Add a toast just for confirmation
             Toast.makeText(this, "Clearing the data...",
                     Toast.LENGTH_SHORT).show();
-
             // Delete the existing data
             // CHECK FUNCTIONALITY LATER. Perhaps better just to return to Main and call delete?
             //mTaskViewModel.deleteAll();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

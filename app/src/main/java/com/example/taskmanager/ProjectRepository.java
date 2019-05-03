@@ -20,9 +20,9 @@ public class ProjectRepository {
         return mAllProjects;
     }
 
-    int getProjectID(String projectName) {
-        return mProjectDao.getProjectID(projectName);
-    }
+//    int getProjectID(String projectName) {
+//        return mProjectDao.getProjectID(projectName);
+//    }
 
     public void insert(Project project) {
         new insertAsyncTask(mProjectDao).execute(project);

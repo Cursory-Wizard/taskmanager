@@ -24,10 +24,6 @@ public class TaskRepository {
         new insertAsyncTask(mTasksDao).execute(task);
     }
 
-//    public void deleteAll()  {
-//        new deleteAllTasksAsyncTask(mTasksDao).execute();
-//    }
-
     public void deleteTask(Tasks task)  {
         new deleteTasksAsyncTask(mTasksDao).execute(task);
     }
@@ -45,21 +41,6 @@ public class TaskRepository {
             return null;
         }
     }
-
-   /* private static class deleteAllTasksAsyncTask extends AsyncTask<Void, Void, Void> {
-        private TasksDao mAsyncTaskDao;
-
-        deleteAllTasksAsyncTask(TasksDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            mAsyncTaskDao.deleteAll();
-            return null;
-        }
-    }*/
-
     private static class deleteTasksAsyncTask extends AsyncTask<Tasks, Void, Void> {
         private TasksDao mAsyncTaskDao;
 

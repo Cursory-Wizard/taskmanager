@@ -11,7 +11,6 @@ import android.widget.EditText;
 public class NewTaskActivity extends AppCompatActivity {
 
     public static final String EXTRA_REPLY = "com.example.android.taskmanager.REPLY";
-
     private EditText mEditTaskView;
 
     @Override
