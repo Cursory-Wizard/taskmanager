@@ -28,6 +28,7 @@ public class ProjectRepository {
         new insertAsyncTask(mProjectDao).execute(project);
     }
 
+
     public void deleteAll()  {
         new deleteAllProjectsAsyncTask(mProjectDao).execute();
     }
@@ -78,6 +79,7 @@ public class ProjectRepository {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            mAsyncTaskDao.deleteTasksTable();
             mAsyncTaskDao.deleteAll();
             return null;
         }

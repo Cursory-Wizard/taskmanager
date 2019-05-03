@@ -14,6 +14,7 @@ public interface TasksDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Tasks task);
 
+
     @Query("DELETE FROM task_table WHERE reference_project = (:project_id)")
     void deleteAll(int project_id);
 

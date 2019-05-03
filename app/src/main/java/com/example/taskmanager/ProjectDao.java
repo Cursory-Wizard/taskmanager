@@ -15,6 +15,9 @@ public interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Project project);
 
+    @Query("DELETE FROM task_table")
+    void deleteTasksTable();
+
     @Query("DELETE FROM project_table")
     void deleteAll();
 
